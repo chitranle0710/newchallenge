@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">WeatherForecast</string>
+    <string name="enter_name">Enter a city name</string>
+    <string name="get_weather">Get Weather</string>
+    <string name="pressure">Pressure: </string>
+    <string name="humid">Humidity: </string>
+    <string name="des">Description: </string>
+
 </resources>

@@ -45,7 +45,7 @@ data class WeatherOrigin(
         @SerializedName("humidity")
         var humidity: Int = 0,
         @SerializedName("weather")
-        var weather: kotlin.collections.List<Weather>? = null,
+        var weather: kotlin.collections.List<Weather> = arrayListOf(),
         @SerializedName("speed")
         var speed: Double = 0.0,
         @SerializedName("deg")
