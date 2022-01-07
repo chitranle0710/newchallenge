@@ -1,5 +1,5 @@
 # newchallenge
-a. MVVM, Singleton is 2 design patterns which are used here. 
+a. MVVM, Singleton are 2 design patterns which are used here. 
 b.This project is applied these architecture components and frameworks, including: 
 - Lifecycle helps you create components that are aware of the current Android lifecycle state.
 - ViewModel holds data and survives configuration changes.
