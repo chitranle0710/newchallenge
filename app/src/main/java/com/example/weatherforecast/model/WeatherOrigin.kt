@@ -37,7 +37,7 @@ data class WeatherOrigin(
         @SerializedName("sunset")
         var sunset: Int = 0,
         @SerializedName("temp")
-        var temp: Temp? = null,
+        var temp: Temp = Temp(),
         @SerializedName("feels_like")
         var feels_like: FeelsLike? = null,
         @SerializedName("pressure")

@@ -3,8 +3,12 @@ package com.example.weatherforecast
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.weatherforecast.databinding.ActivityMainBinding
+import com.example.weatherforecast.model.WeatherOrigin
 import com.example.weatherforecast.ui.adapter.BaseActivity
+import com.example.weatherforecast.ui.adapter.WeatherAdapter
+import com.example.weatherforecast.util.onClick
 import com.example.weatherforecast.viewmodel.WeatherViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -18,10 +22,32 @@ class MainActivity : BaseActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        viewModel.fetchData("saigon")
-        viewModel.weatherLiveData.observe(this) {
-            Log.d("MainActivity", "$it")
+        registerObserver()
+        onClick()
+    }
+
+    private fun onClick() {
+        binding.tvSearch.onClick {
+            viewModel.fetchData("saigon")
         }
     }
 
+    private fun registerObserver() {
+        viewModel.weatherLiveData.observe(this) {
+            initRecyclerView(it.list)
+        }
+        viewModel.loadingData.observe(this) {
+            progressBar(it)
+        }
+    }
+
+    private fun initRecyclerView(listWeather: List<WeatherOrigin.List>?) {
+        listWeather ?: return
+        val adapter = WeatherAdapter(listWeather)
+        val layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        binding.rvWeather.layoutManager = layoutManager
+        binding.rvWeather.setHasFixedSize(true)
+        binding.rvWeather.adapter = adapter
+    }
 }

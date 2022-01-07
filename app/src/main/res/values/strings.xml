@@ -5,5 +5,7 @@
     <string name="pressure">Pressure: </string>
     <string name="humid">Humidity: </string>
     <string name="des">Description: </string>
+    <string name="temp">Average temperature: </string>
+    <string name="date">Date: </string>
 
 </resources>
