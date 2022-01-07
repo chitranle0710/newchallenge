@@ -14,11 +14,11 @@ import javax.inject.Inject
 @HiltViewModel
 class WeatherViewModel @Inject constructor(private val weatherUseCase: WeatherUseCase) :
     ViewModel() {
-    private val weatherLiveData = MutableLiveData<WeatherOrigin>()
+     val weatherLiveData = MutableLiveData<WeatherOrigin>()
 
-    fun fetchData() {
+    fun fetchData(city: String) {
         viewModelScope.launch {
-            when (val result = weatherUseCase.fetchData()) {
+            when (val result = weatherUseCase.fetchData(city)) {
                 is ResultWrapper.Success -> {
                     weatherLiveData.postValue(result.data)
                 }

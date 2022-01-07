@@ -6,6 +6,6 @@ import com.example.weatherforecast.util.ResultWrapper
 
 class WeatherUseCaseImpl(private val repository: WeatherRepository) :
     WeatherUseCase {
-    override suspend fun fetchData(): ResultWrapper<WeatherOrigin> = repository.fetchData()
+    override suspend fun fetchData(city: String): ResultWrapper<WeatherOrigin> = repository.fetchData(city)
 
 }

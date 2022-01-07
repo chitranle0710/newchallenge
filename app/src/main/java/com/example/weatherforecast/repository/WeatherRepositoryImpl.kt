@@ -8,6 +8,6 @@ import javax.inject.Singleton
 
 @Singleton
 class WeatherRepositoryImpl @Inject constructor() : WeatherRepository {
-    override suspend fun fetchData(): ResultWrapper<WeatherOrigin> =
-       Api.fetchResult()
+    override suspend fun fetchData(city: String): ResultWrapper<WeatherOrigin> =
+       Api.fetchResult(city)
 }

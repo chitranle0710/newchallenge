@@ -30,9 +30,10 @@ object Api {
         }
     }
 
-    suspend fun fetchResult(): ResultWrapper<WeatherOrigin> {
+    suspend fun fetchResult(city: String): ResultWrapper<WeatherOrigin> {
         return try {
-            val httpResponse: HttpResponse = client.get("")
+            val httpResponse: HttpResponse =
+                client.get("https://api.openweathermap.org/data/2.5/forecast/daily?q=${city}&cnt=7&appid=60c6fbeb4b93ac653c492ba806fc346d")
             if (httpResponse.status.isSuccess() || httpResponse.status.equals(200)) {
                 ResultWrapper.Success((httpResponse.receive()))
             } else ResultWrapper.Error(httpResponse.receive())
