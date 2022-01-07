@@ -14,7 +14,6 @@ import java.lang.Exception
 
 object Api {
     // using Gson
-    const val URL = "https://ghibliapi.herokuapp.com"
     private const val TIME_OUT = 60_000
 
     private val client = HttpClient(Android) {
