@@ -2,7 +2,9 @@ package com.example.weatherforecast.ui.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AlphaAnimation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherforecast.R
 import com.example.weatherforecast.databinding.ItemWeatherBinding
@@ -14,6 +16,7 @@ import com.example.weatherforecast.util.beVisible
 class WeatherAdapter(private val weatherList: List<WeatherOrigin.List>) :
     RecyclerView.Adapter<WeatherAdapter.WeatherViewHolder>() {
 
+    private val FADE_DURATION = 1000 //FADE_DURATION in milliseconds
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -30,6 +33,7 @@ class WeatherAdapter(private val weatherList: List<WeatherOrigin.List>) :
 
     override fun onBindViewHolder(holder: WeatherAdapter.WeatherViewHolder, position: Int) {
         holder.bind(position, weatherList[position], weatherList)
+        setFadeAnimation(holder.itemView)
     }
 
     override fun getItemCount(): Int = weatherList.size
@@ -57,5 +61,12 @@ class WeatherAdapter(private val weatherList: List<WeatherOrigin.List>) :
                 binding.tvLine.beGone()
             } else binding.tvLine.beVisible()
         }
+    }
+
+
+    private fun setFadeAnimation(view: View) {
+        val anim = AlphaAnimation(0.0f, 1.0f)
+        anim.duration = FADE_DURATION.toLong()
+        view.startAnimation(anim)
     }
 }

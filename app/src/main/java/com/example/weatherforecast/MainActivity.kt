@@ -2,6 +2,9 @@ package com.example.weatherforecast
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.view.animation.AlphaAnimation
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.weatherforecast.databinding.ActivityMainBinding
@@ -28,7 +31,11 @@ class MainActivity : BaseActivity() {
 
     private fun onClick() {
         binding.tvSearch.onClick {
-            viewModel.fetchData("saigon")
+            if (binding.etSearch.text.isNullOrEmpty()) {
+                Toast.makeText(this, "Enter a city name!", Toast.LENGTH_LONG).show()
+                return@onClick
+            }
+            viewModel.fetchData(binding.etSearch.text.toString())
         }
     }
 
@@ -50,4 +57,5 @@ class MainActivity : BaseActivity() {
         binding.rvWeather.setHasFixedSize(true)
         binding.rvWeather.adapter = adapter
     }
+
 }
