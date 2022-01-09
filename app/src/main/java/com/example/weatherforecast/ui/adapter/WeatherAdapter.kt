@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AlphaAnimation
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherforecast.R
 import com.example.weatherforecast.databinding.ItemWeatherBinding
@@ -13,7 +14,7 @@ import com.example.weatherforecast.util.Convert
 import com.example.weatherforecast.util.beGone
 import com.example.weatherforecast.util.beVisible
 
-class WeatherAdapter(private val weatherList: List<WeatherOrigin.List>) :
+class WeatherAdapter(private var weatherList: List<WeatherOrigin.List>) :
     RecyclerView.Adapter<WeatherAdapter.WeatherViewHolder>() {
 
     private val FADE_DURATION = 1000 //FADE_DURATION in milliseconds
@@ -29,6 +30,14 @@ class WeatherAdapter(private val weatherList: List<WeatherOrigin.List>) :
                 false
             )
         )
+    }
+
+    fun setData(listWeather: List<WeatherOrigin.List>?) {
+        listWeather ?: return
+        val toDoDiffUtil = WeatherDiffUtil(weatherList, listWeather)
+        val toDoDiffResult = DiffUtil.calculateDiff(toDoDiffUtil)
+        this.weatherList = listWeather
+        toDoDiffResult.dispatchUpdatesTo(this)
     }
 
     override fun onBindViewHolder(holder: WeatherAdapter.WeatherViewHolder, position: Int) {

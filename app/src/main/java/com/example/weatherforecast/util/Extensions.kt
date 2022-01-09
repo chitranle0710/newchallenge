@@ -5,6 +5,9 @@ import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
 import android.widget.Button
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
 
 fun View?.beVisible() {
     this?.visibility = View.VISIBLE
@@ -57,3 +60,10 @@ class GestureListener : GestureDetector.SimpleOnGestureListener() {
         return true
     }
 }
+
+fun <T> LiveData<T>.nonNullObserve(owner: LifecycleOwner, observer: (t: T) -> Unit) {
+    this.observe(owner, {
+        it?.let(observer)
+    })
+}
+

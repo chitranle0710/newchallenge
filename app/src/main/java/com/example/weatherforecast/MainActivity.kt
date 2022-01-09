@@ -1,15 +1,12 @@
 package com.example.weatherforecast
 
 import android.os.Bundle
-import android.util.Log
-import android.view.View
-import android.view.animation.AlphaAnimation
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.weatherforecast.databinding.ActivityMainBinding
 import com.example.weatherforecast.model.WeatherOrigin
-import com.example.weatherforecast.ui.adapter.BaseActivity
+import com.example.weatherforecast.base.BaseActivity
 import com.example.weatherforecast.ui.adapter.WeatherAdapter
 import com.example.weatherforecast.util.onClick
 import com.example.weatherforecast.viewmodel.WeatherViewModel
@@ -20,11 +17,16 @@ class MainActivity : BaseActivity() {
     private lateinit var binding: ActivityMainBinding
     private val viewModel: WeatherViewModel by viewModels()
 
+    private val adapter by lazy {
+        WeatherAdapter(arrayListOf())
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        initRecyclerView()
         registerObserver()
         onClick()
     }
@@ -41,16 +43,14 @@ class MainActivity : BaseActivity() {
 
     private fun registerObserver() {
         viewModel.weatherLiveData.observe(this) {
-            initRecyclerView(it.list)
+            adapter.setData(it.list)
         }
         viewModel.loadingData.observe(this) {
             progressBar(it)
         }
     }
 
-    private fun initRecyclerView(listWeather: List<WeatherOrigin.List>?) {
-        listWeather ?: return
-        val adapter = WeatherAdapter(listWeather)
+    private fun initRecyclerView() {
         val layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         binding.rvWeather.layoutManager = layoutManager

@@ -1,7 +1,8 @@
-package com.example.weatherforecast.ui.adapter
+package com.example.weatherforecast.base
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.weatherforecast.ui.adapter.DialogLoading
 
 abstract class BaseActivity : AppCompatActivity() {
     private val dialogLoading by lazy {
