@@ -3,6 +3,7 @@ package com.example.weatherforecast.ktor
 import android.util.Log
 import com.example.weatherforecast.model.WeatherOrigin
 import com.example.weatherforecast.util.ResultWrapper
+import com.example.weatherforecast.util.addCharAtIndex
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -36,6 +37,20 @@ class KtorModule @Inject constructor() {
         engine {
             connectTimeout = TIME_OUT
             socketTimeout = TIME_OUT
+        }
+    }
+
+    @Singleton
+    @Provides
+    suspend inline fun <reified T : Any> getMethod(city: String): ResultWrapper<T> {
+        val httpResponse: HttpResponse =
+            provideHttpKtor().get(Constant.URL.addCharAtIndex(city, 57))
+        return try {
+            if (httpResponse.status.isSuccess() || httpResponse.status.equals(Constant.SUCCESS_CODE)) {
+                ResultWrapper.Success((httpResponse.receive()))
+            } else ResultWrapper.Error(httpResponse.receive())
+        } catch (e: Exception) {
+            ResultWrapper.Error(e)
         }
     }
 
