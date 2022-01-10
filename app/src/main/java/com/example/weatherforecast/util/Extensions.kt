@@ -5,7 +5,6 @@ import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
 import android.widget.Button
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 
@@ -67,3 +66,5 @@ fun <T> LiveData<T>.nonNullObserve(owner: LifecycleOwner, observer: (t: T) -> Un
     })
 }
 
+fun String.addCharAtIndex(char: String, index: Int) =
+    StringBuilder(this).apply { insert(index, char) }.toString()

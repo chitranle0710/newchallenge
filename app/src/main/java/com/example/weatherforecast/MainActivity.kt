@@ -33,12 +33,14 @@ class MainActivity : BaseActivity() {
 
     private fun onClick() {
         binding.tvSearch.onClick {
-            if (binding.etSearch.text.isNullOrEmpty()) {
-                Toast.makeText(this, "Enter a city name!", Toast.LENGTH_LONG).show()
+            if (binding.etSearch.text.isNullOrEmpty() || binding.etSearch.text.toString().length <= 3) {
+                Toast.makeText(this, "Empty city's name or not enough letters", Toast.LENGTH_LONG)
+                    .show()
                 return@onClick
             }
             viewModel.fetchData(binding.etSearch.text.toString())
         }
+
     }
 
     private fun registerObserver() {

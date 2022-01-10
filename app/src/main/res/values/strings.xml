@@ -7,5 +7,6 @@
     <string name="des">Description: </string>
     <string name="temp">Average temperature: </string>
     <string name="date">Date: </string>
+    <string name="url">https://api.openweathermap.org/data/2.5/forecast/daily?q=%s&amp;cnt=7&amp;appid=60c6fbeb4b93ac653c492ba806fc346d</string>
 
 </resources>

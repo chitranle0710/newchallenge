@@ -20,7 +20,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class Api @Inject constructor() {
+class KtorModule @Inject constructor() {
     // using Gson
     private val TIME_OUT = 60_000
 
@@ -36,21 +36,6 @@ class Api @Inject constructor() {
         engine {
             connectTimeout = TIME_OUT
             socketTimeout = TIME_OUT
-        }
-    }
-
-    @Singleton
-    @Provides
-    suspend fun fetchResult(city: String): ResultWrapper<WeatherOrigin> {
-        return try {
-            val httpResponse: HttpResponse =
-                provideHttpKtor().get("https://api.openweathermap.org/data/2.5/forecast/daily?q=${city}&cnt=7&appid=60c6fbeb4b93ac653c492ba806fc346d")
-            if (httpResponse.status.isSuccess() || httpResponse.status.equals(200)) {
-                ResultWrapper.Success((httpResponse.receive()))
-            } else ResultWrapper.Error(httpResponse.receive())
-        } catch (ex: Exception) {
-            Log.d("API-EXCEPTION", "$ex")
-            ResultWrapper.Error(ex)
         }
     }
 
