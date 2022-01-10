@@ -23,11 +23,10 @@ class WeatherDataSourceImpl @Inject constructor(
             val url = Constant.URL.addCharAtIndex(city, 57)
             val httpResponse: HttpResponse =
                 ktor.provideHttpKtor().get(url)
-            if (httpResponse.status.isSuccess() || httpResponse.status.equals(200)) {
+            if (httpResponse.status.isSuccess() || httpResponse.status.equals(Constant.SUCCESS_CODE)) {
                 ResultWrapper.Success((httpResponse.receive()))
             } else ResultWrapper.Error(httpResponse.receive())
         } catch (ex: Exception) {
-            Log.d("API-EXCEPTION", "$ex")
             ResultWrapper.Error(ex)
         }
 }

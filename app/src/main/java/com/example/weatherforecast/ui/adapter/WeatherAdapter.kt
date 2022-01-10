@@ -72,7 +72,6 @@ class WeatherAdapter(private var weatherList: List<WeatherOrigin.List>) :
         }
     }
 
-
     private fun setFadeAnimation(view: View) {
         val anim = AlphaAnimation(0.0f, 1.0f)
         anim.duration = FADE_DURATION.toLong()
