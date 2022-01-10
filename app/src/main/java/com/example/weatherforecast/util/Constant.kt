@@ -1,4 +1,4 @@
-package com.example.weatherforecast.ktor
+package com.example.weatherforecast.util
 
 object Constant {
     const val URL =

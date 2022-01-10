@@ -40,18 +40,4 @@ class KtorModule @Inject constructor() {
         }
     }
 
-    @Singleton
-    @Provides
-    suspend inline fun <reified T : Any> getMethod(city: String): ResultWrapper<T> {
-        val httpResponse: HttpResponse =
-            provideHttpKtor().get(Constant.URL.addCharAtIndex(city, 57))
-        return try {
-            if (httpResponse.status.isSuccess() || httpResponse.status.equals(Constant.SUCCESS_CODE)) {
-                ResultWrapper.Success((httpResponse.receive()))
-            } else ResultWrapper.Error(httpResponse.receive())
-        } catch (e: Exception) {
-            ResultWrapper.Error(e)
-        }
-    }
-
 }

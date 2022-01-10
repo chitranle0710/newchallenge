@@ -1,4 +1,4 @@
-package com.example.weatherforecast.di
+package com.example.weatherforecast.modules
 
 import com.example.weatherforecast.repository.WeatherRepository
 import com.example.weatherforecast.usecase.WeatherUseCase
