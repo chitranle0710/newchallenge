@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.weatherforecast.base.BaseViewModel
+import com.example.weatherforecast.model.ErrorCode
 import com.example.weatherforecast.model.WeatherOrigin
 import com.example.weatherforecast.usecase.WeatherUseCase
 import com.example.weatherforecast.util.ResultWrapper
@@ -18,6 +19,7 @@ class WeatherViewModel @Inject constructor(private val weatherUseCase: WeatherUs
     BaseViewModel() {
     val weatherLiveData = MutableLiveData<WeatherOrigin>()
     val loadingData = MutableLiveData<Boolean>()
+    private val error = MutableLiveData<ErrorCode>()
 
     fun fetchData(city: String) {
         loadingData.postValue(true)
@@ -30,8 +32,13 @@ class WeatherViewModel @Inject constructor(private val weatherUseCase: WeatherUs
                         loadingData.postValue(false)
                     }
                     is ResultWrapper.Error -> {
+                        error.postValue(it.error)
                         loadingData.postValue(false)
                     }
+                    else -> {
+                        loadingData.postValue(false)
+                    }
+
                 }
                 loadingData.postValue(false)
             }

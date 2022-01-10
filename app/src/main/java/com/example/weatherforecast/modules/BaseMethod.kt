@@ -1,6 +1,5 @@
 package com.example.weatherforecast.modules
 
-import android.util.Log
 import com.example.weatherforecast.util.Constant
 import com.example.weatherforecast.ktor.KtorModule
 import com.example.weatherforecast.model.ErrorCode
